@@ -3,6 +3,11 @@ using System.Collections.Generic;
 
 public class ResourceManager : MonoBehaviour
 {
+    #region Public Fields
+
+    public static ResourceManager Instance { get; private set; }
+
+    #endregion
     #region Private Fields
 
     private Dictionary<ResourceType, int> resourceAmountDictionary = new ();
@@ -14,7 +19,8 @@ public class ResourceManager : MonoBehaviour
     /// This function called when on awake.
     /// </summary>
     private void Awake()
-    { 
+    {
+        Instance = this;
         resourceTypeList = Resources.Load<ResourceTypeList>(nameof(ResourceTypeList));
 
         foreach (ResourceType resourceType in resourceTypeList.ResourceTypes)
@@ -53,5 +59,6 @@ public class ResourceManager : MonoBehaviour
     public void AddResource(ResourceType resourceType, int amount)
     {
         resourceAmountDictionary[resourceType] += amount;
+        Test();
     }
 }
