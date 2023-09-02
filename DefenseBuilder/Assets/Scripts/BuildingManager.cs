@@ -5,14 +5,22 @@ public class BuildingManager : MonoBehaviour
     #region SerializeFields
 
     [SerializeField] private Camera m_camera;
-    [SerializeField] private Transform m_woodHarvester;
+    [SerializeField] private BuildingTypeList m_buildingTypeList;
+    [SerializeField] private BuildingType m_buildingType;
 
     #endregion
-     #region Private Fields
+    #region Private Fields
 
+    #endregion
     
-
-    #endregion
+    /// <summary>
+    /// This function called when on awake.
+    /// </summary>
+    private void Awake()
+    {
+        m_buildingTypeList = Resources.Load<BuildingTypeList>(nameof(BuildingTypeList));
+        m_buildingType = m_buildingTypeList.BuildingTypes[0];
+    }
 
     /// <summary>
     /// This function called when per frame.
@@ -21,7 +29,7 @@ public class BuildingManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Instantiate(m_woodHarvester, GetMousePosition(), Quaternion.identity);
+            Instantiate(m_buildingType.Prefab, GetMousePosition(), Quaternion.identity);
         }
     }
 
